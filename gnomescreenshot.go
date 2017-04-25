@@ -1,12 +1,12 @@
 package gnomescreenshot
 
-import ( 
+import (
 	"bytes"
-	"log"
-	"os/exec"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
+	"log"
 	"os"
+	"os/exec"
 )
 
 var dir string
@@ -14,7 +14,7 @@ var dir string
 // ErrNoDir is returned when trying to access the screenshot directory
 var ErrNoDir = errors.New("directory not set for output")
 
-// SetDirectory name must be called before MakeDirectory to allow us to 
+// SetDirectoryName must be called before MakeDirectory to allow us to
 // create a directory for screenshots...
 func SetDirectoryName(name string) {
 	dir = name
@@ -24,7 +24,7 @@ func SetDirectoryName(name string) {
 func MakeDirectory(dir string) error {
 	if dir == "" {
 		return ErrNoDir
-	}	
+	}
 
 	return os.Mkdir(dir, 0770)
 }
@@ -41,15 +41,15 @@ func GrabScreenshot(link string) (string, string, error) {
 
 	if dir != "" {
 		err := MakeDirectory(dir)
-		if err.Error() != "mkdir " + dir + ": file exists" {
+		if err.Error() != "mkdir "+dir+": file exists" {
 			return "", "", err
 		}
-	}	
+	}
 
-	command := "gnome-web-photo" 
-	thumbnail := "--mode=thumbnail" 
-	size := "-s" 
-	sizeVal := "256" 
+	command := "gnome-web-photo"
+	thumbnail := "--mode=thumbnail"
+	size := "-s"
+	sizeVal := "256"
 	hyperlink := link
 	filename := dir + "/" + getUUID() + ".png"
 
